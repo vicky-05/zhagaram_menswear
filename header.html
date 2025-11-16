@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Men's Wear | Home</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      background-color: #111;
+      color: #fff;
+      text-align: center;
+      font-size: 14px;
+      padding: 6px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1050;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 1.5rem;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      text-transform: uppercase;
+      color: #000 !important;
+      margin-right: 15px;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover {
+      color: #007bff !important;
+    }
+
+    .navbar-icons i {
+      font-size: 18px;
+      margin-left: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .navbar-icons i:hover {
+      color: #007bff;
+    }
+
+    .search-box {
+      position: relative;
+      width: 250px;
+    }
+    .search-box input {
+      border-radius: 20px;
+      padding: 6px 30px 6px 12px;
+      border: 1px solid #ddd;
+      width: 100%;
+      outline: none;
+      font-size: 14px;
+    }
+    .search-box i {
+      position: absolute;
+      right: 10px;
+      top: 8px;
+      color: #555;
+      cursor: pointer;
+    }
+
+    @media (min-width: 992px) {
+      .navbar-nav {
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 570px) {
+      .search-box {
+        width: 100%;
+      }
+
+      .search-box i{
+        position: relative;
+        top: 0;
+        right: 0;
+      }
+
+      .search-box input[name="search"] {
+        display: none;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .search-box {
+        display: none; 
+      }
+    }
+
+    /* Mobile Nav */
+    @media (max-width: 992px) {
+      .navbar-brand {
+        font-weight: 500; 
+      }
+
+      .navbar-collapse {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 70%;
+        height: 100%;
+        background: #fff;
+        z-index: 1100;
+        padding-top: 60px;
+        transition: left 0.4s ease;
+      }
+      .navbar-collapse.show {
+        left: 0;
+      }
+      .navbar-nav {
+        flex-direction: column;
+        padding-left: 20px;
+      }
+      .nav-link {
+        margin: 15px 0;
+      }
+      .navbar-icons {
+        display: none;
+      }
+      .navbar-toggler {
+        border: none;
+        font-size: 22px;
+      }
+      /* Mobile header inside menu */
+      .mobile-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        margin-bottom: 30px;
+      }
+      .mobile-menu-header .navbar-brand {
+        margin: 0;
+        font-size: 1.3rem;
+      }
+      .mobile-menu-header .btn-close {
+        font-size: 1.5rem;
+        border: none;
+        background: none;
+        height: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">🚚 Free Shipping on Orders Above ₹999 | Easy Returns</div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-fluid px-4 d-flex align-items-center">
+      <!-- 3-dot button for mobile -->
+      <button class="navbar-toggler" type="button">
+        <i class="fa fa-ellipsis-v"></i>
+      </button>
+
+      <a class="navbar-brand mx-3" href="#">ZHAGARAM</a>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Mobile menu header with brand + close -->
+        <div class="mobile-menu-header d-lg-none">
+          <span class="navbar-brand">ZHAGARAM</span>
+          <button class="btn-close" type="button" aria-label="Close">&times;</button>
+        </div>
+
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Collections</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Sale</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Right side icons (desktop only) -->
+      <div class="d-flex align-items-center navbar-icons ms-auto">
+        <div class="search-box">
+          <input type="text" name="search" placeholder="Search...">
+          <i class="fa fa-search"></i>
+        </div>
+        <i class="fa-regular fa-user"></i>
+        <i class="fa-solid fa-cart-shopping"></i>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Bootstrap JS + jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Mobile toggle
+    $(".navbar-toggler").click(function() {
+      $("#navbarNav").toggleClass("show");
+    });
+
+    // Close button inside mobile menu
+    $(".navbar-collapse .btn-close").click(function() {
+      $("#navbarNav").removeClass("show");
+    });
+
+    // Optional: hide top bar on scroll
+    $(window).on("scroll", function() {
+      if ($(this).scrollTop() > 50) {
+        $(".top-bar").slideUp(200);
+      } else {
+        $(".top-bar").slideDown(200);
+      }
+    });
+  </script>
+</body>
+</html>

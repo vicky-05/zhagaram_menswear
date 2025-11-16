@@ -1,0 +1,9 @@
+1) faviicon
+2) logo 
+3) admin login page image
+4) admin mobile view logo
+5) site name
+6) footer content
+7) copyrights content
+8) pagination
+9) Cart Usp Contents
