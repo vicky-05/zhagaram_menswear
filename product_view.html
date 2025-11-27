@@ -569,6 +569,27 @@
         margin-bottom: 4px;
     }
 
+    .prod-review-photos {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+        flex-wrap: wrap;
+    }
+
+    .prod-review-photos img {
+        width: 64px;
+        height: 64px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        transition: transform .2s ease;
+    }
+
+    .prod-review-photos img:hover {
+        transform: scale(1.05);
+    }
+
+
     .dist-stars {
         color: #374151;
     }
@@ -845,6 +866,264 @@
     .cl-card:hover .cl-view-cta span {
         transform: translateX(2px);
     }
+
+    .size-guide-modal {
+        border-radius: 18px;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+    }
+
+    .size-guide-table thead th {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #6b7280;
+        border-bottom-width: 1px;
+    }
+
+    .size-guide-table tbody td {
+        font-size: 0.85rem;
+        padding-block: 6px;
+    }
+
+    .size-howto-list {
+        font-size: 0.85rem;
+        padding-left: 18px;
+    }
+
+    .size-note-box {
+        background: #f3f4f6;
+        border-radius: 10px;
+        padding: 10px 12px;
+    }
+
+    .size-guide-modal {
+        border-radius: 18px;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+    }
+
+    /* tabs look */
+    .size-tabs .nav-link {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-weight: 600;
+        padding: 6px 14px;
+    }
+
+    .size-tabs .nav-link.active {
+        border-color: #111827 #111827 transparent;
+        color: #111827;
+    }
+
+    /* table */
+    .size-guide-table thead th {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #6b7280;
+        border-bottom-width: 1px;
+    }
+
+    .size-guide-table tbody td {
+        font-size: 0.85rem;
+        padding-block: 6px;
+    }
+
+    /* text */
+    .size-howto-list {
+        font-size: 0.85rem;
+        padding-left: 18px;
+    }
+
+    /* image block */
+    .size-figure {
+        background: #f3f4f6;
+        border-radius: 12px;
+        padding: 8px;
+    }
+
+    .size-figure img {
+        border-radius: 10px;
+    }
+
+    .prod-btn-solid {
+        transition: background .2s ease, transform .2s ease;
+    }
+
+    .prod-btn-solid:hover {
+        background: #111;
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+    .review-modal {
+        border-radius: 18px;
+    }
+
+    .review-stars .star {
+        font-size: 28px;
+        margin: 0 4px;
+        cursor: pointer;
+        transition: transform .15s ease;
+    }
+
+    .review-stars .star:hover {
+        transform: scale(1.2);
+        color: #fbbf24;
+    }
+
+    .review-stars .fa-solid {
+        color: #fbbf24;
+    }
+
+    .review-photo-thumb {
+        cursor: pointer;
+        transition: transform .2s ease;
+    }
+
+    .review-photo-thumb:hover {
+        transform: scale(1.04);
+    }
+
+    /* YOU MAY ALSO LIKE */
+    .also-section {
+        background: #ffffff;
+        border-top: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .also-title {
+        font-weight: 700;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+
+    .also-view-all {
+        text-decoration: none;
+    }
+
+    .also-view-all:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsive grid */
+    .also-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 18px;
+    }
+
+    /* Card base */
+    .also-card {
+        position: relative;
+    }
+
+    .also-link {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    /* Image area */
+    .also-media {
+        position: relative;
+        border-radius: 14px;
+        overflow: hidden;
+        background: #e5e7eb;
+        aspect-ratio: 3 / 4;
+    }
+
+    /* primary & secondary images */
+    .also-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        position: absolute;
+        inset: 0;
+        transition: opacity .28s ease, transform .28s ease;
+    }
+
+    .also-img-primary {
+        opacity: 1;
+    }
+
+    .also-img-secondary {
+        opacity: 0;
+    }
+
+    /* Badge */
+    .also-badge {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        z-index: 2;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 600;
+        background: rgba(15, 23, 42, 0.92);
+        color: #f9fafb;
+    }
+
+    /* Text */
+    .also-body {
+        padding-top: 8px;
+    }
+
+    .also-name {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+
+    .also-meta {
+        font-size: 0.9rem;
+    }
+
+    .also-price {
+        font-weight: 700;
+    }
+
+    /* Hover effects */
+    .also-card:hover .also-img-primary {
+        opacity: 0;
+        transform: scale(1.04);
+    }
+
+    .also-card:hover .also-img-secondary {
+        opacity: 1;
+        transform: scale(1.04);
+    }
+
+    .also-card:hover .also-media {
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+    }
+
+    .also-card:hover .also-name {
+        text-decoration: underline;
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 576px) {
+        .also-grid {
+            gap: 14px;
+        }
+
+        .also-media {
+            aspect-ratio: 4 / 5;
+        }
+
+        .also-name {
+            font-size: 0.85rem;
+        }
+
+        .also-price {
+            font-size: 0.85rem;
+        }
+    }
 </style>
 
 <body>
@@ -968,7 +1247,7 @@
                                     class="img-fluid prod-main-img" />
 
                                 <button class="btn btn-sm prod-view-similar">
-                                    View Similar
+                                    ZHAGARAM Choice
                                 </button>
                             </div>
 
@@ -999,20 +1278,25 @@
                                     <span id="prod-size-selected"
                                         class="prod-size-selected text-muted small ms-2">(Select your size)</span>
                                 </div>
-                                <button type="button" class="btn btn-link p-0 prod-size-guide">
+                                <button type="button" class="btn btn-link p-0 prod-size-guide" data-bs-toggle="modal"
+                                    data-bs-target="#sizeGuideModal">
                                     Size Guide
                                 </button>
+
+
+
+
+
                             </div>
 
                             <div class="prod-size-options" role="radiogroup" aria-label="Select size">
-                                <button type="button" class="size-chip active" data-size="30"
-                                    aria-pressed="true">30</button>
-                                <button type="button" class="size-chip" data-size="32">32</button>
-                                <button type="button" class="size-chip" data-size="34">34</button>
-                                <button type="button" class="size-chip" data-size="36">36</button>
-                                <button type="button" class="size-chip" data-size="38">38</button>
-                                <button type="button" class="size-chip" data-size="40">40</button>
-                                <button type="button" class="size-chip" data-size="42">42</button>
+                                <button type="button" class="size-chip active" data-size="S"
+                                    aria-pressed="true">S</button>
+                                <button type="button" class="size-chip" data-size="M">M</button>
+                                <button type="button" class="size-chip" data-size="L">L</button>
+                                <button type="button" class="size-chip" data-size="XL">XL</button>
+                                <button type="button" class="size-chip" data-size="XXL">XXL</button>
+                                <button type="button" class="size-chip" data-size="XXXL">XXXL</button>
                             </div>
                         </div>
 
@@ -1199,6 +1483,11 @@
                     </div>
 
                     <article class="prod-review">
+                        <div class="prod-review-photos">
+                            <img class="review-photo-thumb" src="images/Beige+white.png"
+                                data-full="images/Beige+white.png" alt="Customer review image" loading="lazy">
+                        </div>
+
                         <div class="prod-review-header">
                             <div class="prod-review-stars">
                                 <i class="fa-solid fa-star"></i>
@@ -1262,8 +1551,7 @@
                     <div class="cl-card-inner">
                         <div class="cl-img-wrap">
                             <span class="cl-badge">Trending</span>
-                            <img src="images/black+white.png"
-                                alt="Black Cargo Trouser">
+                            <img src="images/black+white.png" alt="Black Cargo Trouser">
                         </div>
                         <div class="cl-body">
                             <h4 class="cl-name">Black Cargo Trouser</h4>
@@ -1282,8 +1570,7 @@
                     <div class="cl-card-inner">
                         <div class="cl-img-wrap">
                             <span class="cl-badge">Best Seller</span>
-                            <img src="images/olive+white.png"
-                                alt="Olive Green Cargo Trouser">
+                            <img src="images/olive+white.png" alt="Olive Green Cargo Trouser">
                         </div>
                         <div class="cl-body">
                             <h4 class="cl-name">Olive Green Cargo Trouser</h4>
@@ -1302,8 +1589,7 @@
                     <div class="cl-card-inner">
                         <div class="cl-img-wrap">
                             <span class="cl-badge">New</span>
-                            <img src="images/Beige+white.png"
-                                alt="Beige Cargo Trouser">
+                            <img src="images/Beige+white.png" alt="Beige Cargo Trouser">
                         </div>
                         <div class="cl-body">
                             <h4 class="cl-name">Beige Cargo Trouser</h4>
@@ -1322,8 +1608,7 @@
                     <div class="cl-card-inner">
                         <div class="cl-img-wrap">
                             <span class="cl-badge">Limited</span>
-                            <img src="images/grey+white.png"
-                                alt="Black Casual Cargo Trouser">
+                            <img src="images/grey+white.png" alt="Black Casual Cargo Trouser">
                         </div>
                         <div class="cl-body">
                             <h4 class="cl-name">Black Casual Cargo Trouser</h4>
@@ -1337,7 +1622,107 @@
                     </div>
                 </article>
 
-                
+
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- YOU MAY ALSO LIKE -->
+    <section class="also-section py-5">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="also-title mb-0">You may also like</h2>
+                <a href="#" class="also-view-all small text-muted">View all</a>
+            </div>
+
+            <div class="also-grid">
+
+                <!-- Card 1 -->
+                <article class="also-card">
+                    <a href="#" class="also-link">
+                        <div class="also-media">
+                            <span class="also-badge">New</span>
+                            <img class="also-img also-img-primary"
+                                src="images/hoodie-1-1.jpg"
+                                alt="Beige Slim Fit Chinos - front">
+                            <img class="also-img also-img-secondary"
+                                src="images/hoodie-1-2.png"
+                                alt="Beige Slim Fit Chinos - back">
+                        </div>
+                        <div class="also-body">
+                            <h3 class="also-name">Beige Slim Fit Chinos</h3>
+                            <div class="also-meta">
+                                <span class="also-price">Rs. 1,599.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="also-card">
+                    <a href="#" class="also-link">
+                        <div class="also-media">
+                            <span class="also-badge">Trending</span>
+                            <img class="also-img also-img-primary"
+                                src="images/shirt-1-1.jpg"
+                                alt="Charcoal Cargo Joggers - front">
+                            <img class="also-img also-img-secondary"
+                                src="images/shirt-1-2.png"
+                                alt="Charcoal Cargo Joggers - detail">
+                        </div>
+                        <div class="also-body">
+                            <h3 class="also-name">Charcoal Cargo Joggers</h3>
+                            <div class="also-meta">
+                                <span class="also-price">Rs. 1,499.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="also-card">
+                    <a href="#" class="also-link">
+                        <div class="also-media">
+                            <span class="also-badge">Best Seller</span>
+                            <img class="also-img also-img-primary"
+                                src="images/tshirt-1-1.jpg"
+                                alt="Black Tapered Jeans - front">
+                            <img class="also-img also-img-secondary"
+                                src="images/tshirt-1-2.png"
+                                alt="Black Tapered Jeans - detail">
+                        </div>
+                        <div class="also-body">
+                            <h3 class="also-name">Black Tapered Jeans</h3>
+                            <div class="also-meta">
+                                <span class="also-price">Rs. 1,899.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="also-card">
+                    <a href="#" class="also-link">
+                        <div class="also-media">
+                            <span class="also-badge">Limited</span>
+                            <img class="also-img also-img-primary"
+                                src="images/trousere-2-1.jpg"
+                                alt="Olive Utility Pants - front">
+                            <img class="also-img also-img-secondary"
+                                src="images/trouser-2-2.png"
+                                alt="Olive Utility Pants - detail">
+                        </div>
+                        <div class="also-body">
+                            <h3 class="also-name">Olive Utility Pants</h3>
+                            <div class="also-meta">
+                                <span class="also-price">Rs. 1,749.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </article>
 
             </div>
 
@@ -1345,12 +1730,329 @@
     </section>
 
 
+    <!-- SIZE GUIDE MODAL -->
+    <div class="modal fade" id="sizeGuideModal" tabindex="-1" aria-labelledby="sizeGuideLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content size-guide-modal">
+
+                <div class="modal-header border-0 pb-0">
+                    <div>
+                        <h5 class="modal-title" id="sizeGuideLabel">Size Guide</h5>
+                        <p class="text-muted small mb-0">
+                            Find your best fit for bottomwear & hoodies.
+                        </p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body pt-3">
+
+                    <!-- TABS -->
+                    <ul class="nav nav-tabs size-tabs mb-3" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="bottom-tab" data-bs-toggle="tab"
+                                data-bs-target="#size-bottom" type="button" role="tab">
+                                Bottomwear
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="hoodie-tab" data-bs-toggle="tab" data-bs-target="#size-hoodie"
+                                type="button" role="tab">
+                                Hoodies
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <!-- BOTTOMWEAR TAB -->
+                        <div class="tab-pane fade show active" id="size-bottom" role="tabpanel"
+                            aria-labelledby="bottom-tab">
+                            <div class="row g-3 align-items-start">
+                                <div class="col-md-7">
+                                    <div class="table-responsive mb-3">
+                                        <table class="table table-sm align-middle size-guide-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Label Size</th>
+                                                    <th>Waist (in)</th>
+                                                    <th>Hip (in)</th>
+                                                    <th>Length (in)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>30</td>
+                                                    <td>30–31</td>
+                                                    <td>37–38</td>
+                                                    <td>40</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>32</td>
+                                                    <td>32–33</td>
+                                                    <td>39–40</td>
+                                                    <td>40.5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>34</td>
+                                                    <td>34–35</td>
+                                                    <td>41–42</td>
+                                                    <td>41</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>36</td>
+                                                    <td>36–37</td>
+                                                    <td>43–44</td>
+                                                    <td>41.5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>38</td>
+                                                    <td>38–39</td>
+                                                    <td>45–46</td>
+                                                    <td>42</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>40</td>
+                                                    <td>40–41</td>
+                                                    <td>47–48</td>
+                                                    <td>42.5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>42</td>
+                                                    <td>42–43</td>
+                                                    <td>49–50</td>
+                                                    <td>43</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <h6 class="mb-2">How to measure (Bottomwear)</h6>
+                                    <ul class="size-howto-list mb-0">
+                                        <li><strong>Waist:</strong> Measure around your natural waistline, just above
+                                            the hips.</li>
+                                        <li><strong>Hip:</strong> Measure around the fullest part of your hips.</li>
+                                        <li><strong>Length:</strong> From top of waistband to ankle along the outer
+                                            seam.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <!-- Size guide image -->
+                                    <div class="size-figure">
+                                        <img src="images/bottomwear_sizechart.png"
+                                            alt="Bottomwear measurement illustration" class="img-fluid">
+                                        <p class="small text-muted mt-1 mb-0">
+                                            Use a well-fitting trouser you own and compare its measurements.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- HOODIES TAB -->
+                        <div class="tab-pane fade" id="size-hoodie" role="tabpanel" aria-labelledby="hoodie-tab">
+                            <div class="row g-3 align-items-start">
+                                <div class="col-md-7">
+                                    <div class="table-responsive mb-3">
+                                        <table class="table table-sm align-middle size-guide-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Label Size</th>
+                                                    <th>Chest (in)</th>
+                                                    <th>Shoulder (in)</th>
+                                                    <th>Length (in)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>S</td>
+                                                    <td>36–38</td>
+                                                    <td>16.5–17</td>
+                                                    <td>26</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>M</td>
+                                                    <td>38–40</td>
+                                                    <td>17–17.5</td>
+                                                    <td>27</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>L</td>
+                                                    <td>40–42</td>
+                                                    <td>17.5–18</td>
+                                                    <td>28</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>XL</td>
+                                                    <td>42–44</td>
+                                                    <td>18–18.5</td>
+                                                    <td>29</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>XXL</td>
+                                                    <td>44–46</td>
+                                                    <td>18.5–19</td>
+                                                    <td>30</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>XXXL</td>
+                                                    <td>46–48</td>
+                                                    <td>19–19.5</td>
+                                                    <td>31</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <h6 class="mb-2">How to measure (Hoodies)</h6>
+                                    <ul class="size-howto-list mb-0">
+                                        <li><strong>Chest:</strong> Measure around the fullest part of your chest, under
+                                            the arms.</li>
+                                        <li><strong>Shoulder:</strong> From one shoulder seam to the other across the
+                                            back.</li>
+                                        <li><strong>Length:</strong> From highest shoulder point to bottom hem.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <!-- Hoodie measurement image -->
+                                    <div class="size-figure">
+                                        <img src="images/HOODIE-SIZE-CHART.jpg" alt="Hoodie measurement illustration"
+                                            class="img-fluid">
+                                        <p class="small text-muted mt-1 mb-0">
+                                            For an oversized look in hoodies, choose one size up from your regular chest
+                                            size.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer border-0 pt-2">
+                    <button type="button" class="btn btn-dark btn-sm px-3" data-bs-dismiss="modal">
+                        Got it
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD TO CART CONFIRM MODAL -->
+    <div class="modal fade" id="addToCartConfirmModal" tabindex="-1" aria-labelledby="addToCartConfirmLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title" id="addToCartConfirmLabel">Add to Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p id="addToCartConfirmText" class="mb-0">
+                        <!-- text will be filled by JS -->
+                    </p>
+                </div>
+
+                <div class="modal-footer border-0 pt-2">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-dark btn-sm" data-bs-dismiss="modal">
+                        Continue
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- WRITE REVIEW MODAL -->
+    <div class="modal fade" id="writeReviewModal" tabindex="-1" aria-labelledby="writeReviewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content review-modal">
+
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title" id="writeReviewLabel">Write a Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <!-- Star Rating -->
+                    <div class="review-stars mb-3 text-center">
+                        <i class="fa-regular fa-star star"></i>
+                        <i class="fa-regular fa-star star"></i>
+                        <i class="fa-regular fa-star star"></i>
+                        <i class="fa-regular fa-star star"></i>
+                        <i class="fa-regular fa-star star"></i>
+                    </div>
+
+                    <form id="reviewForm">
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Your Name</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email (optional)</label>
+                                <input type="email" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Your Review</label>
+                            <textarea class="form-control" rows="4" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Add Images (optional)</label>
+                            <input type="file" class="form-control" accept="image/*" multiple>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-dark w-100" id="submitReviewBtn">
+                        Submit Review
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- REVIEW IMAGE ENLARGE MODAL -->
+    <div class="modal fade" id="reviewImageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="background:#000; border-radius:12px;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    style="filter: invert(1); position:absolute; right:10px; top:10px;"></button>
+
+                <img id="reviewImageLarge" src="" class="img-fluid"
+                    style="border-radius:10px; margin:16px auto; max-height:75vh; display:block;">
+            </div>
+        </div>
+    </div>
 
 
 
 
 </body>
+<!-- Bootstrap + jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -1404,7 +2106,128 @@
         });
     });
 
-    
+    document.addEventListener("DOMContentLoaded", () => {
+        const addBtn = document.querySelector(".prod-btn.prod-btn-solid");
+        const sizeChips = document.querySelectorAll(".size-chip"); // size buttons on product page
+
+        if (!addBtn) return;
+
+        let selectedSize = null;
+
+        // Track selected size from size chips
+        sizeChips.forEach(chip => {
+            chip.addEventListener("click", () => {
+                selectedSize = chip.dataset.size || chip.textContent.trim();
+            });
+        });
+
+        // 🔥 Idle shake animation every ~2s (when not hovered)
+        if (typeof gsap !== "undefined") {
+            const idleTl = gsap.timeline({
+                repeat: -1,
+                repeatDelay: 2,
+                paused: false
+            });
+
+            idleTl.to(addBtn, {
+                x: -3,
+                duration: 0.06,
+                yoyo: true,
+                repeat: 5,
+                ease: "power1.inOut"
+            }).to(addBtn, { x: 0, duration: 0.06 });
+
+            // Pause shake on hover
+            addBtn.addEventListener("mouseenter", () => {
+                idleTl.pause();
+                gsap.to(addBtn, { x: 0, duration: 0.1 }); // ensure reset
+            });
+
+            // Resume shake when mouse leaves
+            addBtn.addEventListener("mouseleave", () => {
+                idleTl.resume();
+            });
+        }
+
+        // 🛒 Click → show modal with selected size info
+        addBtn.addEventListener("click", () => {
+            const textEl = document.getElementById("addToCartConfirmText");
+            const modalEl = document.getElementById("addToCartConfirmModal");
+            if (!textEl || !modalEl) return;
+
+            if (!selectedSize) {
+                textEl.textContent = "Please select a size before adding this item to your cart.";
+            } else {
+                textEl.textContent = "Your selected size is " + selectedSize + ".";
+            }
+
+            // Show Bootstrap modal
+            const bsModal = new bootstrap.Modal(modalEl);
+            bsModal.show();
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        // Open Modal when clicking Write a Review
+        const openBtn = document.querySelector(".prod-write-review-btn");
+        openBtn.addEventListener("click", () => {
+            const modal = new bootstrap.Modal(document.getElementById("writeReviewModal"));
+            modal.show();
+        });
+
+        // Star Rating
+        const stars = document.querySelectorAll(".review-stars .star");
+        let selectedRating = 0;
+
+        stars.forEach((star, index) => {
+            star.addEventListener("mouseenter", () => {
+                stars.forEach((s, i) => {
+                    s.classList.toggle("fa-solid", i <= index);
+                    s.classList.toggle("fa-regular", i > index);
+                });
+            });
+
+            star.addEventListener("click", () => {
+                selectedRating = index + 1;
+            });
+        });
+
+        // Submit Button Animation + Confirm Modal
+        const submitBtn = document.getElementById("submitReviewBtn");
+        submitBtn.addEventListener("click", () => {
+            gsap.to(submitBtn, {
+                scale: 1.05,
+                duration: 0.15,
+                yoyo: true,
+                repeat: 1
+            });
+
+            setTimeout(() => {
+                alert("Thank you for your review! ⭐ Rating: " + (selectedRating || "No rating"));
+                document.getElementById("reviewForm").reset();
+                document.querySelector(".btn-close").click();
+            }, 300);
+        });
+
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const modalEl = document.getElementById("reviewImageModal");
+        const modalImg = document.getElementById("reviewImageLarge");
+        const modal = new bootstrap.Modal(modalEl);
+
+        // When user clicks a review image
+        document.addEventListener("click", (e) => {
+            const img = e.target.closest(".review-photo-thumb");
+            if (!img) return;
+
+            modalImg.src = img.dataset.full || img.src; // use full resolution if available
+            modal.show();
+        });
+    });
+
+
 </script>
 
 
