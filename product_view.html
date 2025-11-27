@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product View Page</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&family=Science+Gothic:wght@100..900&display=swap"
+        rel="stylesheet">
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+</head>
+<style>
+    /* Navbar */
+    .navbar {
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+    }
+
+    .navbar-brand {
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #000 !important;
+    }
+
+    .nav-link {
+        font-weight: 500;
+        color: #000 !important;
+        text-transform: uppercase;
+        margin: 0 10px;
+        transition: color 0.3s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+        color: #007bff !important;
+    }
+
+    /* Icons (desktop) */
+    .navbar-icons i {
+        font-size: 18px;
+        color: #000;
+        margin-left: 18px;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    .navbar-icons i:hover {
+        color: #007bff;
+    }
+
+    /* Offcanvas (mobile menu) */
+    .offcanvas {
+        width: 250px;
+        background: #111;
+        color: #fff;
+    }
+
+    .offcanvas-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .offcanvas .nav-link {
+        color: #fff !important;
+        padding: 10px 0;
+    }
+
+    /* Bottom Navbar (mobile only) */
+    .bottom-nav {
+        display: none;
+        background: #111;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        padding: 6px 0 3px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .bottom-nav .nav-item {
+        flex: 1;
+        text-align: center;
+        color: #ccc;
+        font-size: 12px;
+    }
+
+    .bottom-nav .nav-item i {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 3px;
+        color: #ccc;
+    }
+
+    .bottom-nav .nav-item.active i,
+    .bottom-nav .nav-item.active span {
+        color: #fff;
+    }
+
+    /* Responsive Rules */
+    @media (max-width: 991px) {
+        .navbar-collapse {
+            display: none !important;
+            /* Hide desktop links */
+        }
+
+        .bottom-nav {
+            display: flex;
+        }
+    }
+</style>
+
+<style type="text/css">
+    /* Top Sliding Text Bar */
+    .top-slide-bar {
+        background: #111;
+        color: #fff;
+        padding: 6px 0;
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+
+    .top-slide-bar marquee {
+        color: #fff;
+    }
+</style>
+
+<style>
+    /* =========================
+   PRODUCT PAGE – LAYOUT
+   ========================= */
+    .product-page {
+        background: #f9fafb;
+    }
+
+    .product-left {
+        /* sticky on desktop */
+    }
+
+    @media (min-width: 992px) {
+        .product-left {
+            position: sticky;
+            top: 90px;
+            /* adjust based on navbar height */
+        }
+    }
+
+    /* MEDIA GALLERY */
+    .prod-gallery {
+        display: grid;
+        grid-template-columns: 90px minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .prod-thumbs {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .prod-thumb {
+        border: none;
+        padding: 0;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #f3f4f6;
+        cursor: pointer;
+        outline: none;
+        box-shadow: 0 0 0 1px transparent;
+        transition: box-shadow 0.18s ease, transform 0.18s ease;
+    }
+
+    .prod-thumb img {
+        width: 100%;
+        height: 80px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .prod-thumb.active,
+    .prod-thumb:hover {
+        box-shadow: 0 0 0 2px #111827;
+        transform: translateY(-1px);
+    }
+
+    .prod-main {
+        position: relative;
+        border-radius: 14px;
+        overflow: hidden;
+        background: #e5e7eb;
+    }
+
+    .prod-main-img {
+        width: 100%;
+        max-height: 540px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .prod-view-similar {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        border-radius: 999px;
+        padding-inline: 14px;
+        padding-block: 6px;
+        background-color: #111827;
+        color: #fff;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border: none;
+    }
+
+    /* mobile gallery */
+    @media (max-width: 767.98px) {
+        .prod-gallery {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .prod-main {
+            order: 1;
+        }
+
+        .prod-thumbs {
+            order: 2;
+            flex-direction: row;
+            overflow-x: auto;
+            padding-top: 8px;
+        }
+
+        .prod-thumb img {
+            width: 70px;
+            height: 70px;
+        }
+    }
+
+    /* =========================
+   PRODUCT INFO
+   ========================= */
+    .prod-info {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 16px 18px 18px;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .prod-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+    }
+
+    .prod-price-row {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .prod-price-main {
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+    .prod-price-old {
+        font-size: 0.95rem;
+        color: #9ca3af;
+        text-decoration: line-through;
+        margin-left: 8px;
+    }
+
+    .prod-price-tax {
+        font-size: 0.8rem;
+    }
+
+    /* sizes */
+    .prod-size-label {
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+    }
+
+    .prod-size-guide {
+        font-size: 0.8rem;
+        color: #2563eb;
+    }
+
+    .prod-size-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .size-chip {
+        min-width: 42px;
+        border-radius: 999px;
+        border: 1px solid #d1d5db;
+        background: #f9fafb;
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease,
+            transform 0.12s ease;
+    }
+
+    .size-chip:hover {
+        border-color: #111827;
+    }
+
+    .size-chip.active {
+        background: #111827;
+        color: #fff;
+        border-color: #111827;
+        transform: translateY(-1px);
+    }
+
+    /* buttons */
+    .prod-btn {
+        border-radius: 999px;
+        border: 1px solid #111827;
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 10px 16px;
+    }
+
+    .prod-btn-outline {
+        background: #fff;
+        color: #111827;
+    }
+
+    .prod-btn-solid {
+        background: #111827;
+        color: #fff;
+    }
+
+    .prod-btn-outline-dark {
+        background: transparent;
+        color: #111827;
+    }
+
+    .prod-enquiry-label {
+        font-size: 0.8rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #6b7280;
+    }
+
+    /* EDD / pincode */
+    .prod-edd-block {
+        margin-top: 10px;
+        font-size: 0.85rem;
+    }
+
+    .prod-edd-line {
+        display: flex;
+        align-items: center;
+    }
+
+    .prod-edd-input {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid #d1d5db;
+        background: #f9fafb;
+    }
+
+    .prod-pincode-input {
+        border: none;
+        outline: none;
+        background: transparent;
+        flex: 1;
+        font-size: 0.85rem;
+    }
+
+    .prod-pincode-btn {
+        border: none;
+        border-radius: 999px;
+        padding: 5px 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        background: #111827;
+        color: #fff;
+    }
+
+    /* INLINE TRUST ICONS (right column) */
+    .prod-trust-inline {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        padding: 14px 0;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        gap: 10px;
+    }
+
+    .prod-trust-inline .trust-item {
+        text-align: center;
+    }
+
+    .trust-icon {
+        font-size: 20px;
+        color: #111827;
+    }
+
+    .trust-label {
+        font-size: 11px;
+        margin-top: 4px;
+        color: #555;
+    }
+
+    @media (max-width: 576px) {
+        .prod-trust-inline {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* ACCORDION (inside right) */
+    .prod-accordion {
+        margin-top: 16px;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .prod-acc-item+.prod-acc-item {
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .prod-acc-header {
+        width: 100%;
+        padding: 12px 14px;
+        font-size: 13px;
+        font-weight: 600;
+        border: none;
+        background: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .acc-chevron {
+        transition: transform 0.25s ease;
+    }
+
+    .prod-acc-body {
+        font-size: 13px;
+        padding: 0 14px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.25s ease, padding 0.25s ease;
+    }
+
+    .prod-acc-body p {
+        margin: 10px 0 6px;
+    }
+
+    .prod-acc-body ul {
+        padding-left: 18px;
+        margin-bottom: 10px;
+    }
+
+    .prod-acc-item.open .prod-acc-body {
+        padding: 12px 14px 12px;
+        max-height: 220px;
+    }
+
+    .prod-acc-item.open .acc-chevron {
+        transform: rotate(180deg);
+    }
+
+    /* mobile tweaks for right column */
+    @media (max-width: 767.98px) {
+        .prod-info {
+            margin-top: 4px;
+        }
+
+        .prod-title {
+            font-size: 1.25rem;
+        }
+
+        .prod-price-main {
+            font-size: 1.15rem;
+        }
+    }
+
+    /* =========================
+   CUSTOMER REVIEWS
+   ========================= */
+    .prod-reviews-section {
+        background: #ffffff;
+        border-top: 1px solid rgba(148, 163, 184, 0.25);
+        padding-bottom: 3rem;
+    }
+
+    .prod-reviews-title {
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .prod-reviews-grid {
+        display: grid;
+        gap: 24px;
+    }
+
+    @media (min-width: 992px) {
+        .prod-reviews-grid {
+            grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+        }
+    }
+
+    .prod-reviews-summary {
+        padding: 16px 18px;
+        border-radius: 16px;
+        background: #f9fafb;
+        box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+    }
+
+    .prod-reviews-average {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .stars-lg {
+        color: #facc15;
+        font-size: 1.1rem;
+    }
+
+    .prod-reviews-average-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.1;
+    }
+
+    .prod-reviews-average-text .avg-value {
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+
+    .prod-reviews-average-text .avg-out-of {
+        font-size: 0.8rem;
+        color: #6b7280;
+    }
+
+    .prod-reviews-distribution .dist-row {
+        display: grid;
+        grid-template-columns: 50px minmax(0, 1fr) 28px;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+    }
+
+    .dist-stars {
+        color: #374151;
+    }
+
+    .dist-bar {
+        height: 8px;
+        border-radius: 999px;
+        background: #e5e7eb;
+        overflow: hidden;
+    }
+
+    .dist-bar span {
+        display: block;
+        height: 100%;
+        width: 0;
+        border-radius: inherit;
+        background: #4b5563;
+    }
+
+    .dist-count {
+        text-align: right;
+    }
+
+    .prod-write-review-btn {
+        padding: 10px 20px;
+        border-radius: 999px;
+        border: none;
+        background: #111827;
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        width: 100%;
+    }
+
+    .prod-reviews-list {
+        padding: 12px 0;
+    }
+
+    .prod-sort-select {
+        font-size: 0.8rem;
+        border-radius: 999px;
+        border: 1px solid #d1d5db;
+        padding: 4px 10px;
+    }
+
+    .prod-review {
+        padding: 12px 0;
+        border-top: 1px solid rgba(209, 213, 219, 0.8);
+    }
+
+    .prod-review-header {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 4px;
+    }
+
+    .prod-review-stars {
+        color: #facc15;
+        font-size: 0.9rem;
+    }
+
+    .prod-review-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+    }
+
+    .prod-review-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .prod-review-badge {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 3px 7px;
+        border-radius: 999px;
+        background: #e0f2fe;
+        color: #0369a1;
+    }
+
+    .prod-review-date {
+        font-size: 0.75rem;
+        color: #9ca3af;
+    }
+
+    .prod-review-title {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 2px;
+    }
+
+    .prod-review-text {
+        font-size: 0.9rem;
+        color: #374151;
+    }
+
+    @media (max-width: 576px) {
+        .prod-reviews-summary {
+            padding: 14px 14px;
+        }
+
+        .prod-review-header {
+            grid-template-columns: 1fr;
+        }
+
+        .prod-review-date {
+            justify-self: flex-start;
+        }
+    }
+
+    /* COMPLETE THE LOOK – SECTION */
+    .complete-look-section {
+        background: white;
+    }
+
+    .cl-title {
+        font-weight: 700;
+        font-size: 1.35rem;
+        text-transform: uppercase;
+        letter-spacing: .06em;
+    }
+
+    /* Responsive grid */
+    .cl-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: 22px;
+    }
+
+    /* Outer shell with subtle gradient border */
+    .cl-card {
+        position: relative;
+        border-radius: 18px;
+        background: radial-gradient(circle at top left,
+                rgba(37, 99, 235, 0.18),
+                rgba(15, 23, 42, 0.02));
+        padding: 1px;
+        /* border thickness */
+    }
+
+    /* Inner card */
+    .cl-card-inner {
+        border-radius: inherit;
+        background: #ffffff;
+        padding: 10px 10px 12px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+        transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+    }
+
+    /* Image area with fixed ratio */
+    .cl-img-wrap {
+        border-radius: 14px;
+        overflow: hidden;
+        position: relative;
+        aspect-ratio: 3 / 4;
+        background: #e5e7eb;
+    }
+
+    .cl-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .4s ease;
+    }
+
+    /* Text */
+    .cl-body {
+        padding-top: 10px;
+    }
+
+    .cl-name {
+        margin: 0 2px 4px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #111827;
+    }
+
+    .cl-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .cl-price {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #111827;
+    }
+
+    /* Hover effects */
+    .cl-card:hover .cl-card-inner {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
+        background: #f9fafb;
+    }
+
+    .cl-card:hover .cl-img-wrap img {
+        transform: scale(1.06);
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 576px) {
+        .cl-card-inner {
+            padding: 8px 8px 10px;
+        }
+
+        .cl-img-wrap {
+            aspect-ratio: 4 / 5;
+        }
+
+        .cl-name {
+            font-size: 0.85rem;
+        }
+
+        .cl-price {
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Badge on image */
+    .cl-badge {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        padding: 4px 9px;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        background: rgba(15, 23, 42, 0.9);
+        color: #f9fafb;
+    }
+
+    /* View CTA button */
+    .cl-view-cta {
+        border: none;
+        background: transparent;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #6b7280;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 2px 0;
+        opacity: 0;
+        transform: translateY(4px);
+        transition: opacity .2s ease, transform .2s ease, color .2s ease;
+    }
+
+    .cl-view-cta span {
+        font-size: 0.9rem;
+    }
+
+    /* On card hover, reveal CTA and slightly change colour */
+    .cl-card:hover .cl-view-cta {
+        opacity: 1;
+        transform: translateY(0);
+        color: #111827;
+    }
+
+    .cl-card:hover .cl-view-cta span {
+        transform: translateX(2px);
+    }
+</style>
+
+<body>
+    <!-- Top Sliding Text Bar -->
+    <div class="top-slide-bar">
+        <marquee behavior="scroll" direction="left" scrollamount="5">
+            🔥 Stylish Men's Wear Collection Now Live! | ✨ Free Shipping on Orders Above ₹999 | 🛒 New Arrivals Every
+            Week!
+        </marquee>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid px-4 d-flex align-items-center">
+            <a class="navbar-brand" href="#">ZHAGARAM</a>
+            <!-- Logo -->
+
+
+
+            <!-- 3-dots button (mobile) -->
+            <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                <i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
+            </button>
+
+            <!-- Desktop Links (centered) -->
+            <div class="collapse navbar-collapse justify-content-center">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Collections</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Sale</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Icons (desktop right) -->
+            <div class="navbar-icons ms-auto d-none d-lg-flex align-items-center">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-regular fa-user"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Offcanvas (Mobile Menu) -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+        <div class="offcanvas-header">
+            <h6 class="offcanvas-title mb-0">ZHAGARAM</h6>
+            <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Collections</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Sale</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa-solid fa-shop"></i>
+            <span>Shop</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Collections</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa-solid fa-percent"></i>
+            <span>Sale</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>Contact</span>
+        </div>
+    </div>
+
+    <!-- PRODUCT PAGE -->
+    <section class="product-page py-4 py-md-5">
+        <div class="container">
+            <div class="row g-4">
+
+                <!-- LEFT: MEDIA GALLERY (sticky on desktop) -->
+                <div class="col-lg-6">
+                    <div class="product-left">
+                        <div class="prod-gallery">
+
+                            <!-- Thumbnails -->
+                            <div class="prod-thumbs">
+                                <button class="prod-thumb active" data-full="images/hoodie-1-1.jpg"
+                                    aria-label="Front view">
+                                    <img src="images/hoodie-1-1.jpg" alt="Front view">
+                                </button>
+
+                                <button class="prod-thumb" data-full="images/hoodie-1-2.png" aria-label="Side view">
+                                    <img src="images/hoodie-1-2.png" alt="Side view">
+                                </button>
+
+                                <button class="prod-thumb" data-full="images/hoodie-back.png" aria-label="Back view">
+                                    <img src="images/hoodie-back.png" alt="Back view">
+                                </button>
+
+                                <button class="prod-thumb" data-full="images/hoodie-side0view.png"
+                                    aria-label="Detail view">
+                                    <img src="images/hoodie-side0view.png" alt="Detail view">
+                                </button>
+                            </div>
+
+                            <!-- Main image -->
+                            <div class="prod-main">
+                                <img id="prod-main-img" src="images/hoodie-1-1.jpg" alt="Black cargo trouser main view"
+                                    class="img-fluid prod-main-img" />
+
+                                <button class="btn btn-sm prod-view-similar">
+                                    View Similar
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: PRODUCT INFO + TRUST + ACCORDIONS -->
+                <div class="col-lg-6">
+                    <div class="prod-info">
+
+                        <!-- Title + price -->
+                        <h1 class="prod-title mb-1">DREAM Marble Hoodie</h1>
+
+                        <div class="prod-price-row mb-2">
+                            <span class="prod-price-main">Rs. 599.00</span>
+                            <span class="prod-price-old">Rs. 999.00</span>
+                            <span class="prod-price-tax text-muted">
+                                Tax included. Shipping calculated at checkout.
+                            </span>
+                        </div>
+
+                        <!-- Size selector -->
+                        <div class="prod-size-block mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <span class="prod-size-label">Size</span>
+                                    <span id="prod-size-selected"
+                                        class="prod-size-selected text-muted small ms-2">(Select your size)</span>
+                                </div>
+                                <button type="button" class="btn btn-link p-0 prod-size-guide">
+                                    Size Guide
+                                </button>
+                            </div>
+
+                            <div class="prod-size-options" role="radiogroup" aria-label="Select size">
+                                <button type="button" class="size-chip active" data-size="30"
+                                    aria-pressed="true">30</button>
+                                <button type="button" class="size-chip" data-size="32">32</button>
+                                <button type="button" class="size-chip" data-size="34">34</button>
+                                <button type="button" class="size-chip" data-size="36">36</button>
+                                <button type="button" class="size-chip" data-size="38">38</button>
+                                <button type="button" class="size-chip" data-size="40">40</button>
+                                <button type="button" class="size-chip" data-size="42">42</button>
+                            </div>
+                        </div>
+
+                        <!-- Action buttons -->
+                        <div class="prod-actions-block mb-3">
+                            <button type="button" class="prod-btn prod-btn-outline w-100 mb-2">
+                                <i class="fa-regular fa-heart me-2"></i> ADD TO WISHLIST
+                            </button>
+
+                            <button type="button" class="prod-btn prod-btn-solid w-100 mb-2">
+                                ADD TO CART
+                            </button>
+
+                            <div class="prod-enquiry-label mb-1">FOR ENQUIRIES</div>
+                            <button type="button" class="prod-btn prod-btn-outline-dark w-100">
+                                BULK ORDERS / CORPORATE GIFTING
+                            </button>
+                        </div>
+
+                        <!-- Pincode / EDD -->
+                        <div class="prod-edd-block">
+                            <div class="prod-edd-line">
+                                <i class="fa-solid fa-truck-fast me-2"></i>
+                                <span>Check <strong>EDD</strong> by entering pin-code below</span>
+                            </div>
+
+                            <div class="prod-edd-input mt-2">
+                                <i class="fa-solid fa-location-dot me-2 text-muted"></i>
+                                <input type="text" class="prod-pincode-input" placeholder="Enter area Pincode">
+                                <button type="button" class="prod-pincode-btn">Check</button>
+                            </div>
+                        </div>
+
+                        <!-- Trust icons inside right column -->
+                        <div class="prod-trust-inline mt-4 mb-3">
+                            <div class="trust-item">
+                                <i class="fa-solid fa-circle-check trust-icon"></i>
+                                <p class="trust-label">Delivery Guaranteed</p>
+                            </div>
+                            <div class="trust-item">
+                                <i class="fa-solid fa-shield-halved trust-icon"></i>
+                                <p class="trust-label">Secure Payment</p>
+                            </div>
+                            <div class="trust-item">
+                                <i class="fa-solid fa-star trust-icon"></i>
+                                <p class="trust-label">5 Star Rated</p>
+                            </div>
+                            <div class="trust-item">
+                                <i class="fa-solid fa-truck-fast trust-icon"></i>
+                                <p class="trust-label">Easy Tracking</p>
+                            </div>
+                        </div>
+
+                        <!-- Accordions -->
+                        <div class="prod-accordion">
+                            <div class="prod-acc-item open">
+                                <button class="prod-acc-header">
+                                    <span>Description</span>
+                                    <i class="fa-solid fa-chevron-down acc-chevron"></i>
+                                </button>
+                                <div class="prod-acc-body">
+                                    <p>
+                                        White base with a striking black marble pattern and a bold black brushstroke
+                                        across the chest featuring the word “DREAM” in white capital letters.
+                                    </p>
+                                    <ul>
+                                        <li>Material: Soft cotton blend (White & Lavender tones), designed for comfort
+                                            and breathability.
+
+                                        </li>
+                                        <li>Fit: Oversized pullover style with ribbed cuffs and hem for a relaxed
+                                            streetwear silhouette.</li>
+                                        <li>Style: Casual streetwear ideal for all seasons. Pairs well with joggers,
+                                            cargo pants, or denim.</li>
+                                        <li>Care Instructions: Machine washable; gentle cycle recommended to preserve
+                                            print and fabric texture.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="prod-acc-item">
+                                <button class="prod-acc-header">
+                                    <span>Return &amp; Exchange</span>
+                                    <i class="fa-solid fa-chevron-down acc-chevron"></i>
+                                </button>
+                                <div class="prod-acc-body">
+                                    <p>Easy 7–10 day return &amp; exchange on unworn products with tags intact.</p>
+                                </div>
+                            </div>
+
+                            <div class="prod-acc-item">
+                                <button class="prod-acc-header">
+                                    <span>Ask a Question</span>
+                                    <i class="fa-solid fa-chevron-down acc-chevron"></i>
+                                </button>
+                                <div class="prod-acc-body">
+                                    <p>
+                                        Need help with sizing, fabric or delivery? Reach out on WhatsApp or email and
+                                        we’ll respond within 24 hours.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CUSTOMER REVIEWS -->
+    <section class="prod-reviews-section py-4">
+        <div class="container">
+            <h2 class="prod-reviews-title text-center mb-3">CUSTOMER REVIEWS</h2>
+
+            <div class="prod-reviews-grid">
+                <!-- Summary -->
+                <div class="prod-reviews-summary">
+                    <div class="prod-reviews-average">
+                        <div class="stars-lg">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="prod-reviews-average-text">
+                            <span class="avg-value">5.00</span>
+                            <span class="avg-out-of">out of 5</span>
+                        </div>
+                    </div>
+                    <div class="prod-reviews-based text-muted small">
+                        Based on <span class="reviews-count">2</span> reviews
+                    </div>
+
+                    <div class="prod-reviews-distribution mt-3">
+                        <div class="dist-row" data-count="2" data-total="2">
+                            <div class="dist-stars">5 ★</div>
+                            <div class="dist-bar"><span></span></div>
+                            <div class="dist-count">2</div>
+                        </div>
+                        <div class="dist-row" data-count="0" data-total="2">
+                            <div class="dist-stars">4 ★</div>
+                            <div class="dist-bar"><span></span></div>
+                            <div class="dist-count">0</div>
+                        </div>
+                        <div class="dist-row" data-count="0" data-total="2">
+                            <div class="dist-stars">3 ★</div>
+                            <div class="dist-bar"><span></span></div>
+                            <div class="dist-count">0</div>
+                        </div>
+                        <div class="dist-row" data-count="0" data-total="2">
+                            <div class="dist-stars">2 ★</div>
+                            <div class="dist-bar"><span></span></div>
+                            <div class="dist-count">0</div>
+                        </div>
+                        <div class="dist-row" data-count="0" data-total="2">
+                            <div class="dist-stars">1 ★</div>
+                            <div class="dist-bar"><span></span></div>
+                            <div class="dist-count">0</div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <button type="button" class="prod-write-review-btn">
+                            Write a review
+                        </button>
+                    </div>
+                </div>
+
+                <!-- List -->
+                <div class="prod-reviews-list">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="small text-muted">Showing 2 of 2 reviews</div>
+                        <div class="prod-sort">
+                            <label for="review-sort" class="small me-1 text-muted">Sort</label>
+                            <select id="review-sort" class="prod-sort-select">
+                                <option>Most Recent</option>
+                                <option>Highest Rated</option>
+                                <option>Lowest Rated</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <article class="prod-review">
+                        <div class="prod-review-header">
+                            <div class="prod-review-stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <div class="prod-review-meta">
+                                <span class="prod-review-name">Thota Venkateswararao</span>
+                                <span class="prod-review-badge">Verified</span>
+                            </div>
+                            <div class="prod-review-date">08/05/2025</div>
+                        </div>
+                        <div class="prod-review-body">
+                            <div class="prod-review-title">Good</div>
+                            <p class="prod-review-text mb-0">
+                                Quality is excellent, fitting is perfect and fabric feels premium. Worth the price.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="prod-review">
+                        <div class="prod-review-header">
+                            <div class="prod-review-stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <div class="prod-review-meta">
+                                <span class="prod-review-name">Karthik M.</span>
+                                <span class="prod-review-badge">Verified</span>
+                            </div>
+                            <div class="prod-review-date">02/03/2025</div>
+                        </div>
+                        <div class="prod-review-body">
+                            <div class="prod-review-title">Perfect for office</div>
+                            <p class="prod-review-text mb-0">
+                                Looks very neat with formal shirts, true to size, no color fade after wash.
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPLETE THE LOOK -->
+    <section class="complete-look-section py-5">
+        <div class="container">
+
+            <h2 class="cl-title text-center mb-4">Complete the Look</h2>
+
+            <div class="cl-grid">
+
+                <!-- Card 1 -->
+                <article class="cl-card">
+                    <div class="cl-card-inner">
+                        <div class="cl-img-wrap">
+                            <span class="cl-badge">Trending</span>
+                            <img src="images/black+white.png"
+                                alt="Black Cargo Trouser">
+                        </div>
+                        <div class="cl-body">
+                            <h4 class="cl-name">Black Cargo Trouser</h4>
+                            <div class="cl-meta">
+                                <span class="cl-price">Rs.699.00</span>
+                                <button class="cl-view-cta" type="button">
+                                    View <span>›</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="cl-card">
+                    <div class="cl-card-inner">
+                        <div class="cl-img-wrap">
+                            <span class="cl-badge">Best Seller</span>
+                            <img src="images/olive+white.png"
+                                alt="Olive Green Cargo Trouser">
+                        </div>
+                        <div class="cl-body">
+                            <h4 class="cl-name">Olive Green Cargo Trouser</h4>
+                            <div class="cl-meta">
+                                <span class="cl-price">Rs.599.00</span>
+                                <button class="cl-view-cta" type="button">
+                                    View <span>›</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="cl-card">
+                    <div class="cl-card-inner">
+                        <div class="cl-img-wrap">
+                            <span class="cl-badge">New</span>
+                            <img src="images/Beige+white.png"
+                                alt="Beige Cargo Trouser">
+                        </div>
+                        <div class="cl-body">
+                            <h4 class="cl-name">Beige Cargo Trouser</h4>
+                            <div class="cl-meta">
+                                <span class="cl-price">Rs. 499.00</span>
+                                <button class="cl-view-cta" type="button">
+                                    View <span>›</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="cl-card">
+                    <div class="cl-card-inner">
+                        <div class="cl-img-wrap">
+                            <span class="cl-badge">Limited</span>
+                            <img src="images/grey+white.png"
+                                alt="Black Casual Cargo Trouser">
+                        </div>
+                        <div class="cl-body">
+                            <h4 class="cl-name">Black Casual Cargo Trouser</h4>
+                            <div class="cl-meta">
+                                <span class="cl-price">Rs. 1,799.00</span>
+                                <button class="cl-view-cta" type="button">
+                                    View <span>›</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                
+
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        /* THUMBNAILS -> MAIN IMAGE */
+        const mainImg = document.getElementById("prod-main-img");
+        const thumbs = document.querySelectorAll(".prod-thumb");
+        if (mainImg && thumbs.length) {
+            thumbs.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const full = btn.getAttribute("data-full");
+                    if (full) {
+                        mainImg.src = full;
+                        const altImg = btn.querySelector("img");
+                        if (altImg) mainImg.alt = altImg.alt;
+                    }
+                    thumbs.forEach(t => t.classList.remove("active"));
+                    btn.classList.add("active");
+                });
+            });
+        }
+
+        /* SIZE SELECTION */
+        const sizeButtons = document.querySelectorAll(".size-chip");
+        const sizeLabel = document.getElementById("prod-size-selected");
+        if (sizeButtons.length && sizeLabel) {
+            sizeButtons.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const size = btn.dataset.size;
+                    sizeButtons.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    sizeLabel.textContent = `(Selected: ${size})`;
+                });
+            });
+        }
+
+        /* ACCORDION */
+        document.querySelectorAll(".prod-acc-header").forEach(header => {
+            header.addEventListener("click", () => {
+                header.parentElement.classList.toggle("open");
+            });
+        });
+
+        /* REVIEW DISTRIBUTION BARS */
+        document.querySelectorAll(".prod-reviews-distribution .dist-row").forEach(row => {
+            const count = Number(row.dataset.count || 0);
+            const total = Number(row.dataset.total || 0);
+            const span = row.querySelector(".dist-bar span");
+            if (!span) return;
+            const pct = total > 0 ? (count / total) * 100 : 0;
+            span.style.width = pct + "%";
+        });
+    });
+
+    
+</script>
+
+
+
+</html>

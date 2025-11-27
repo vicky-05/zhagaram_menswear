@@ -18,8 +18,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&family=Science+Gothic:wght@100..900&display=swap"
     rel="stylesheet">
-  
-  
+
+
   <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
 
   <style>
@@ -626,7 +626,7 @@
       font-size: .92rem;
     }
 
-    /* Floating WhatsApp button */
+    /* Floating WhatsApp Button — default for desktop */
     .floating-whatsapp {
       position: fixed;
       right: 18px;
@@ -636,15 +636,28 @@
       border-radius: 14px;
       display: grid;
       place-items: center;
-      z-index: 120;
+      z-index: 2000;
+      /* must be above bottom-nav */
       box-shadow: 0 12px 30px rgba(12, 16, 24, 0.18);
-      background: transparent;
+      background: white;
       transition: transform .18s ease;
     }
 
+    /* Hover */
     .floating-whatsapp:hover {
       transform: translateY(-6px);
     }
+
+    /* FIX FOR MOBILE — lift above bottom navbar */
+    @media (max-width: 991px) {
+      .floating-whatsapp {
+        bottom: 80px !important;
+        /* lift button above bottom nav */
+        z-index: 3001;
+        /* make sure button is above EVERYTHING */
+      }
+    }
+
 
     /* --- Horizontal Scroll Wrapper (Desktop Only) --- */
     .prod-scroll-wrapper {
@@ -747,7 +760,7 @@
       }
     }
 
-    /* Size pills (Option B) - rounded clickable tags */
+    /* Size pills - rounded clickable tags */
     .prod-sizes {
       display: flex;
       gap: 8px;
