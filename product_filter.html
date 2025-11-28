@@ -1,0 +1,2159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shirts</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&family=Science+Gothic:wght@100..900&display=swap"
+        rel="stylesheet">
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+</head>
+<style>
+    /* Navbar */
+    .navbar {
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+    }
+
+    .navbar-brand {
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #000 !important;
+    }
+
+    .nav-link {
+        font-weight: 500;
+        color: #000 !important;
+        text-transform: uppercase;
+        margin: 0 10px;
+        transition: color 0.3s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+        color: #007bff !important;
+    }
+
+    /* Icons (desktop) */
+    .navbar-icons i {
+        font-size: 18px;
+        color: #000;
+        margin-left: 18px;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    .navbar-icons i:hover {
+        color: #007bff;
+    }
+
+    /* Offcanvas (mobile menu) */
+    .offcanvas {
+        width: 250px;
+        background: #111;
+        color: #fff;
+    }
+
+    .offcanvas-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .offcanvas .nav-link {
+        color: #fff !important;
+        padding: 10px 0;
+    }
+
+    /* Bottom Navbar (mobile only) */
+    .bottom-nav {
+        display: none;
+        background: #111;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        padding: 6px 0 3px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .bottom-nav .nav-item {
+        flex: 1;
+        text-align: center;
+        color: #ccc;
+        font-size: 12px;
+    }
+
+    .bottom-nav .nav-item i {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 3px;
+        color: #ccc;
+    }
+
+    .bottom-nav .nav-item.active i,
+    .bottom-nav .nav-item.active span {
+        color: #fff;
+    }
+
+    /* Responsive Rules */
+    @media (max-width: 991px) {
+        .navbar-collapse {
+            display: none !important;
+            /* Hide desktop links */
+        }
+
+        .bottom-nav {
+            display: flex;
+        }
+    }
+</style>
+
+<style type="text/css">
+    /* Top Sliding Text Bar */
+    .top-slide-bar {
+        background: #111;
+        color: #fff;
+        padding: 6px 0;
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+
+    .top-slide-bar marquee {
+        color: #fff;
+    }
+</style>
+
+<style>
+    /* Page heading */
+    .cat-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    /* Filter button */
+    .cat-filter-btn {
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-size: 0.85rem;
+    }
+
+    /* Sort select */
+    .cat-sort-select {
+        min-width: 150px;
+    }
+
+    /* Card base */
+    .cat-card {
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+        transition: transform .2s ease, box-shadow .2s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    /* Image area */
+    .cat-media {
+        position: relative;
+        aspect-ratio: 3 / 4;
+        overflow: hidden;
+    }
+
+    .cat-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* cat-media already exists – keep aspect-ratio etc., just add this: */
+    .cat-media {
+        position: relative;
+        aspect-ratio: 3 / 4;
+        overflow: hidden;
+    }
+
+    /* dual images */
+    .cat-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity .3s ease, transform .3s ease;
+    }
+
+    .cat-img-primary {
+        opacity: 1;
+    }
+
+    .cat-img-secondary {
+        opacity: 0;
+    }
+
+    /* icons hidden by default */
+    .cat-actions {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        display: flex;
+        gap: 6px;
+        opacity: 0;
+        transform: translateY(8px);
+        transition: opacity .2s ease, transform .2s ease;
+    }
+
+    /* on hover – swap image + show icons */
+    .cat-card:hover .cat-img-primary {
+        opacity: 0;
+        transform: scale(1.04);
+    }
+
+    .cat-card:hover .cat-img-secondary {
+        opacity: 1;
+        transform: scale(1.04);
+    }
+
+    .cat-card:hover .cat-actions {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+
+    /* Badge */
+    .cat-badge {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        background: #111827;
+        color: #fff;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    /* Icon buttons */
+    .cat-actions {
+        position: absolute;
+        left: 8px;
+        bottom: 8px;
+        display: flex;
+        gap: 6px;
+    }
+
+    .cat-icon-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 999px;
+        border: none;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, 0.9);
+        cursor: pointer;
+        font-size: 0.85rem;
+    }
+
+    .cat-icon-btn i {
+        color: #111827;
+    }
+
+    /* Body */
+    .cat-body {
+        padding: 10px 10px 12px;
+    }
+
+    .cat-name {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    .cat-price-row {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+    }
+
+    .cat-price {
+        font-weight: 700;
+    }
+
+    /* Size chips */
+    .cat-sizes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .size-chip {
+        border-radius: 999px;
+        border: 1px solid #d1d5db;
+        padding: 2px 8px;
+        font-size: 0.75rem;
+        background: #fff;
+        cursor: pointer;
+    }
+
+    .size-chip.disabled {
+        opacity: .45;
+        cursor: default;
+    }
+
+    .cat-pagination-wrap {
+        display: flex;
+        justify-content: center;
+    }
+
+    .cat-pagination {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* arrow boxes */
+    .page-arrow {
+        width: 52px;
+        height: 52px;
+        border-radius: 2px;
+        border: none;
+        background: #111111;
+        color: #ffffff;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition: background .2s ease, transform .15s ease;
+    }
+
+    .page-arrow:hover:not(.disabled) {
+        background: #000000;
+        transform: translateY(-1px);
+    }
+
+    .page-arrow.disabled {
+        opacity: 0.4;
+        cursor: default;
+    }
+
+    /* page numbers */
+    .page-number {
+        border: none;
+        background: transparent;
+        font-size: 0.95rem;
+        padding: 0 2px;
+        color: #6b7280;
+        cursor: pointer;
+        transition: color .2s ease;
+    }
+
+    .page-number.is-active {
+        color: #111111;
+        font-weight: 600;
+    }
+
+    .page-number:hover:not(.is-active) {
+        color: #374151;
+    }
+
+    /* offcanvas base */
+    .cat-filter-offcanvas {
+        width: 320px;
+        max-width: 80%;
+    }
+
+    /* header */
+    .cat-filter-offcanvas .offcanvas-header {
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .cat-filter-offcanvas .offcanvas-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    /* individual filter blocks */
+    .cat-filter-block+.cat-filter-block {
+        border-top: 1px solid #e5e7eb;
+        margin-top: 8px;
+        padding-top: 10px;
+    }
+
+    /* toggle row (PRICE / PRODUCT TYPE / SIZE) */
+    .cat-filter-toggle {
+        width: 100%;
+        border: none;
+        background: transparent;
+        padding: 8px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .cat-filter-toggle .chevron {
+        font-size: 0.8rem;
+    }
+
+    /* collapsed content */
+    .cat-filter-panel {
+        padding-bottom: 8px;
+    }
+
+    /* price range */
+    .cat-price-range .form-range {
+        padding: 0;
+    }
+
+    /* checkboxes */
+    .cat-filter-offcanvas .form-check-input {
+        width: 14px;
+        height: 14px;
+        margin-top: 0.1rem;
+    }
+
+    .cat-filter-offcanvas .form-check-label {
+        font-size: 0.8rem;
+    }
+
+    /* Dark theme for filter */
+    .cat-filter-offcanvas {
+        width: 320px;
+        max-width: 80%;
+        background: #050505;
+        color: #f9fafb;
+    }
+
+    .cat-filter-offcanvas .offcanvas-header {
+        border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .cat-filter-block+.cat-filter-block {
+        border-top: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    /* Section titles */
+    .cat-filter-toggle {
+        color: #e5e7eb;
+    }
+
+    /* Range labels */
+    .cat-price-range .text-muted {
+        color: #9ca3af !important;
+    }
+
+    /* Checkbox text */
+    .cat-filter-offcanvas .form-check-label {
+        color: #e5e7eb;
+    }
+
+    /* Buttons at bottom */
+    .cat-filter-offcanvas .btn-dark {
+        background: #111827;
+        border-color: #111827;
+    }
+
+    .cat-filter-offcanvas .btn-outline-secondary {
+        border-color: #4b5563;
+        color: #e5e7eb;
+    }
+</style>
+
+<body>
+    <!-- Top Sliding Text Bar -->
+    <div class="top-slide-bar">
+        <marquee behavior="scroll" direction="left" scrollamount="5">
+            🔥 Stylish Men's Wear Collection Now Live! | ✨ Free Shipping on Orders Above ₹999 | 🛒 New Arrivals Every
+            Week!
+        </marquee>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid px-4 d-flex align-items-center">
+            <a class="navbar-brand" href="#">ZHAGARAM</a>
+            <!-- Logo -->
+
+
+
+            <!-- 3-dots button (mobile) -->
+            <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                <i class="fa-solid fa-ellipsis-vertical fa-lg"></i>
+            </button>
+
+            <!-- Desktop Links (centered) -->
+            <div class="collapse navbar-collapse justify-content-center">
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Collections</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Sale</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Icons (desktop right) -->
+            <div class="navbar-icons ms-auto d-none d-lg-flex align-items-center">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-regular fa-heart"></i>
+                <i class="fa-regular fa-user"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Offcanvas (Mobile Menu) -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+        <div class="offcanvas-header">
+            <h6 class="offcanvas-title mb-0">ZHAGARAM</h6>
+            <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Collections</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Sale</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <div class="bottom-nav">
+        <div class="nav-item active">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa-solid fa-shop"></i>
+            <span>Shop</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Collections</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa-solid fa-percent"></i>
+            <span>Sale</span>
+        </div>
+        <div class="nav-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>Contact</span>
+        </div>
+    </div>
+    <!-- CATEGORY PAGE: SHIRTS -->
+    <main class="category-page py-4">
+        <div class="container">
+
+            <!-- Top heading -->
+            <div class="text-center mb-3">
+                <h1 class="cat-title mb-1">Shirts</h1>
+                <div class="text-muted small">
+                    <span class="cat-count">182 products</span>
+                </div>
+            </div>
+
+            <!-- Filter + Sort row -->
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <!-- Filter button (left) -->
+                <button class="btn btn-outline-secondary cat-filter-btn" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#catFilterOffcanvas" aria-controls="catFilterOffcanvas">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span class="ms-1">Filter</span>
+                </button>
+
+                <!-- CATEGORY FILTER OFFCANVAS -->
+                <div class="offcanvas offcanvas-start cat-filter-offcanvas" tabindex="-1" id="catFilterOffcanvas"
+                    aria-labelledby="catFilterOffcanvasLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="catFilterOffcanvasLabel">Filter</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+
+                    <div class="offcanvas-body">
+
+                        <!-- PRICE -->
+                        <div class="cat-filter-block">
+                            <button class="cat-filter-toggle" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#filterPrice" aria-expanded="true">
+                                <span>PRICE</span>
+                                <i class="fa-solid fa-chevron-up chevron"></i>
+                            </button>
+                            <div id="filterPrice" class="collapse show cat-filter-panel">
+                                <div class="cat-price-range mb-2">
+                                    <div class="d-flex justify-content-between small text-muted mb-1">
+                                        <span>Rs. 0.00</span>
+                                        <span>Rs. 2,049.00</span>
+                                    </div>
+                                    <!-- simple range slider (demo; no functional JS here) -->
+                                    <input type="range" class="form-range" min="0" max="2049" value="0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PRODUCT TYPE -->
+                        <div class="cat-filter-block">
+                            <button class="cat-filter-toggle" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#filterType" aria-expanded="true">
+                                <span>PRODUCT TYPE</span>
+                                <i class="fa-solid fa-chevron-up chevron"></i>
+                            </button>
+                            <div id="filterType" class="collapse show cat-filter-panel">
+                                <div class="form-check mb-1">
+                                    <input class="form-check-input" type="checkbox" value="" id="typeShirt" checked>
+                                    <label class="form-check-label small" for="typeShirt">
+                                        Shirt (182)
+                                    </label>
+                                </div>
+                                <!-- add more types if needed -->
+                            </div>
+                        </div>
+
+                        <!-- SIZE -->
+                        <div class="cat-filter-block">
+                            <button class="cat-filter-toggle" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#filterSize" aria-expanded="true">
+                                <span>SIZE</span>
+                                <i class="fa-solid fa-chevron-up chevron"></i>
+                            </button>
+                            <div id="filterSize" class="collapse show cat-filter-panel">
+                                <div class="form-check small mb-1">
+                                    <input class="form-check-input" type="checkbox" id="sizeS">
+                                    <label class="form-check-label" for="sizeS">S (1)</label>
+                                </div>
+                                <div class="form-check small mb-1">
+                                    <input class="form-check-input" type="checkbox" id="sizeM">
+                                    <label class="form-check-label" for="sizeM">M (1)</label>
+                                </div>
+                                <div class="form-check small mb-1">
+                                    <input class="form-check-input" type="checkbox" id="sizeL">
+                                    <label class="form-check-label" for="sizeL">L (1)</label>
+                                </div>
+                                <div class="form-check small mb-1">
+                                    <input class="form-check-input" type="checkbox" id="sizeXL">
+                                    <label class="form-check-label" for="sizeXL">XL (1)</label>
+                                </div>
+                                <div class="form-check small mb-1">
+                                    <input class="form-check-input" type="checkbox" id="sizeXXL">
+                                    <label class="form-check-label" for="sizeXXL">XXL (1)</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reset / apply buttons (optional) -->
+                        <div class="mt-3 d-grid gap-2">
+                            <button class="btn btn-dark btn-sm">Apply Filters</button>
+                            <button class="btn btn-outline-secondary btn-sm">Clear All</button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="flex-grow-1"></div>
+
+                <!-- Sort dropdown (right) -->
+                <div class="cat-sort d-flex align-items-center">
+                    <select id="cat-sort-select" class="form-select form-select-sm cat-sort-select">
+                        <option selected>Best selling</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- GRID: 4 per row on desktop -->
+            <div class="row g-3 cat-grid">
+
+                <!-- Product card 1 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-1-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-1-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Brown Corduroy Semi Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,449.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip disabled">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 2 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-2-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-2-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Green Checked Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,349.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 3 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">Best seller</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-3-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-3-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Emerald Green Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 4 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-4-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-4-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Navy Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 1 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-1-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-1-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Brown Corduroy Semi Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,449.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip disabled">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 2 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-2-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-2-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Green Checked Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,349.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 3 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">Best seller</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-3-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-3-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Emerald Green Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 4 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-4-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-4-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Navy Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 1 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-1-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-1-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Brown Corduroy Semi Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,449.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip disabled">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 2 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-2-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-2-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Green Checked Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,349.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 3 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">Best seller</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-3-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-3-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Emerald Green Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 4 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-4-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-4-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Navy Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 1 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-1-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-1-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Brown Corduroy Semi Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,449.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip disabled">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 2 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-2-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-2-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Green Checked Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,349.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 3 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">Best seller</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-3-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-3-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Emerald Green Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 4 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-4-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-4-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Navy Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 1 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-1-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-1-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Brown Corduroy Semi Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,449.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip disabled">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 2 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-2-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-2-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Green Checked Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,349.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 3 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">Best seller</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-3-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-3-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Emerald Green Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 4 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-4-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-4-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Navy Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 1 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-1-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-1-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Brown Corduroy Semi Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,449.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip disabled">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 2 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-2-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-2-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Green Checked Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,349.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 3 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">Best seller</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-3-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-3-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Emerald Green Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 4 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-4-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-4-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Navy Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 1 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-1-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-1-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Brown Corduroy Semi Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,449.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip disabled">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 2 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-2-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-2-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Green Checked Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,349.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 3 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">Best seller</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-3-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-3-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Emerald Green Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 4 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-4-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-4-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Navy Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 1 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-1-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-1-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Brown Corduroy Semi Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,449.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip disabled">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 2 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-2-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-2-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Green Checked Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,349.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 3 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">Best seller</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-3-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-3-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Emerald Green Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 4 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-4-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-4-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Navy Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 1 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-1-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-1-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Brown Corduroy Semi Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,449.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip disabled">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 2 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-2-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-2-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Green Checked Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,349.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 3 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">Best seller</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-3-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-3-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Emerald Green Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 4 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-4-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-4-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Navy Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 1 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-1-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-1-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Brown Corduroy Semi Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,449.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip disabled">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 2 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-2-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-2-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Green Checked Casual Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,349.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                                <button class="size-chip">44</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 3 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">Best seller</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-3-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-3-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Emerald Green Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Product card 4 -->
+                <div class="col-6 col-md-4 col-lg-3">
+                    <article class="cat-card">
+                        <div class="cat-media">
+                            <span class="cat-badge">New</span>
+                            <img class="cat-img cat-img-primary" src="images/shirt-4-1.jpg"
+                                alt="Brown Corduroy Semi Casual Shirt - front">
+
+                            <!-- hover image -->
+                            <img class="cat-img cat-img-secondary" src="images/shirt-4-2.png"
+                                alt="Brown Corduroy Semi Casual Shirt - back">
+                            <div class="cat-actions">
+                                <button class="cat-icon-btn" aria-label="Wishlist"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="cat-icon-btn" aria-label="Quick view"><i
+                                        class="fa-regular fa-eye"></i></button>
+                                <button class="cat-icon-btn" aria-label="Add to cart"><i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                            </div>
+                        </div>
+                        <div class="cat-body">
+                            <h3 class="cat-name">Navy Linen Blend Solid Shirt</h3>
+                            <div class="cat-price-row">
+                                <span class="cat-price">Rs. 1,149.00</span>
+                            </div>
+                            <div class="cat-sizes">
+                                <button class="size-chip">36</button>
+                                <button class="size-chip">38</button>
+                                <button class="size-chip">40</button>
+                                <button class="size-chip">42</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- 👉 Duplicate the above 4 card blocks until you have 28 products (7 rows of 4) -->
+
+            </div>
+
+            <!-- Pagination -->
+            <nav class="cat-pagination-wrap mt-4" aria-label="Shirts pagination">
+                <ul class="cat-pagination">
+                    <li>
+                        <button class="page-arrow disabled" aria-label="Previous page">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                    </li>
+
+                    <li><button class="page-number is-active">1</button></li>
+                    <li><button class="page-number">2</button></li>
+                    <li><button class="page-number">3</button></li>
+                    <li><button class="page-number">4</button></li>
+
+                    <li>
+                        <button class="page-arrow" aria-label="Next page">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+
+
+        </div>
+    </main>
+
+
+</body>
+
+<!-- Bootstrap + jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".cat-filter-toggle").forEach(btn => {
+            const chevron = btn.querySelector(".chevron");
+            const targetId = btn.getAttribute("data-bs-target");
+            const target = document.querySelector(targetId);
+
+            if (!target || !chevron) return;
+
+            target.addEventListener("show.bs.collapse", () => {
+                chevron.classList.remove("fa-chevron-down");
+                chevron.classList.add("fa-chevron-up");
+            });
+
+            target.addEventListener("hide.bs.collapse", () => {
+                chevron.classList.remove("fa-chevron-up");
+                chevron.classList.add("fa-chevron-down");
+            });
+        });
+    });
+</script>
+
+</html>
